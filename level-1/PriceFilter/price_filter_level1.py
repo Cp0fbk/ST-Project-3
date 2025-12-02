@@ -20,7 +20,7 @@ from ddt import ddt, data, unpack
 def load_test_data():
     """Load test data from CSV file"""
     test_data = []
-    csv_path = os.path.join(os.path.dirname(__file__), 'test_data.csv')
+    csv_path = os.path.join(os.path.dirname(__file__), 'price_filter_test_data.csv')
     
     with open(csv_path, 'r', encoding='utf-8') as file:
         csv_reader = csv.DictReader(file)

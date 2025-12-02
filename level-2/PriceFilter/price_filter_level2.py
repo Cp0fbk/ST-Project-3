@@ -14,14 +14,19 @@ import csv
 import time
 import re
 import os
-from config import BASE_URL, LOCATORS, TEST_CONFIG, EXPECTED_VALUES
+import sys
+
+# Add the current directory to the Python path to find config.py
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from price_filter_config import BASE_URL, LOCATORS, TEST_CONFIG, EXPECTED_VALUES
 from ddt import ddt, data, unpack
 
 
 def load_test_data():
     """Load test data from CSV file"""
     test_data = []
-    csv_path = os.path.join(os.path.dirname(__file__), 'test_data.csv')
+    csv_path = os.path.join(os.path.dirname(__file__), 'price_filter_test_data.csv')
     
     with open(csv_path, 'r', encoding='utf-8') as file:
         csv_reader = csv.DictReader(file)
