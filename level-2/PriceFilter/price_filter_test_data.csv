@@ -1,26 +1,26 @@
 test_case_id,min_price,max_price,expected_result,expected_price,expected_pagination,test_description
-TC003001,-1,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Negative minimum value
-TC003002,0,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Zero minimum value
-TC003003,50,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Valid range
-TC003004,100,100,pass,N/A,N/A,Maximum equals minimum
-TC003005,100,50,fail,N/A,N/A,Maximum less than minimum
-TC003006,0,9999,pass,$98.00,Showing 1 to 15 of 26 (2 Pages),Very large maximum
-TC003007,50.50,100.99,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Decimal values
-TC003008,@#$,!%^,fail,N/A,N/A,Special characters
-TC003009,abc,xyz,fail,N/A,N/A,Alphabetic characters
-TC003010,,,pass,$98.00,Showing 1 to 15 of 26 (2 Pages),Empty fields
-TC003011,50,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Filter persistence
-TC003012,50,,pass,$98.00,Showing 1 to 15 of 21 (2 Pages),Only minimum value
-TC003013,,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Only maximum value
-TC003014,50,100,pass,$98.00,Showing 1 to 15 of 26 (2 Pages),Reset functionality
-TC003015,0,-50,fail,N/A,N/A,Negative maximum value
-TC003016,50,150,pass,$98.00,Showing 1 to 15 of 23 (2 Pages),Multiple filter applications
-TC003017,  50  ,  100  ,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Whitespace input
-TC003018,50,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Display format verification
-TC003019,0.01,0.99,fail,N/A,N/A,Very small decimal values
-TC003020,50,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Response time test
-TC003021,0,1000,pass,$98.00,Showing 1 to 15 of 26 (2 Pages),Large number of results
-TC003022,98,98,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Exact boundary
-TC003023,50,abc,fail,N/A,N/A,Mixed valid/invalid input
-TC003024,50,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Accessibility test
-TC003025,1' OR '1'='1,100,fail,N/A,N/A,SQL injection attempt
+TC003001,-1,100,fail,N/A,N/A,Verify that the system correctly rejects price inputs below the valid threshold (0≤price≤5000). Expect an error message.
+TC003002,0,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Verify that the system correctly accepts the lower boundary value for min price=0 and returns a valid product list.
+TC003003,500,1000,pass,$602.00,Showing 1 to 2 of 2 (1 Pages),Verify that the system correctly accepts the normal range for a mid-range price value (min price=500) and returns a valid product list.
+TC003004,5000,5000,pass,N/A,N/A,Verify that the system correctly accepts the upper boundary value for min price=5000 and returns a valid product list.
+TC003005,5001,500,fail,N/A,N/A,Verify that the system rejects price input above the upper boundary (min price>5000) and displays the correct error message.
+TC003006,0,-1,fail,N/A,N/A,Verify that the system correctly rejects price inputs below the valid threshold (0≤price≤5000). Expect an error message.
+TC003007,0,0,fail,N/A,N/A,Verify that the system correctly accepts the lower boundary value for max price=0 and returns a valid product list.
+TC003008,300,500,pass,$337.99,Showing 1 to 2 of 2 (1 Pages),Verify that the system correctly accepts the normal range for a mid-range price value (max price=500) and returns a valid product list.
+TC003009,2000,5000,pass,$2000.00,Showing 1 to 2 of 2 (1 Pages),Verify that the system correctly accepts the upper boundary value for max price=5000 and returns a valid product list.
+TC003010,2000,5001,fail,N/A,N/A,Verify that the system rejects price input above the upper boundary (max price>5000) and displays the correct error message.
+TC003011,2000,1000,fail,N/A,N/A,The data is valid in type, but the Min ≤ Max condition is not satisfied. Show message “Error requiring input Min price ≤ Max price”.
+TC003012,300,500,pass,$337.99,Showing 1 to 2 of 2 (1 Pages),Verifies the valid equivalence class where both Min and Max are numeric values in the allowed range and Min ≤ Max. The system should accept the input and apply the price filter correctly.
+TC003013,-10,100,fail,N/A,N/A,Verifies the invalid equivalence class “negative Min value”. The system should reject this input (or show a validation error) because Min is a negative number.
+TC003014,2000,6000,fail,N/A,N/A,Verifies the invalid equivalence class “max price value greater than allowed range”. The system should handle out-of-range values properly (e.g., show an error).
+TC003015,,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Verifies the invalid equivalence class “empty Min value”. The system’s behavior when Min is left blank should be checked (treat it as 0).
+TC003016,300,abc,fail,N/A,N/A,Verifies the invalid equivalence class “non-numeric Max value”. The system should not accept alphabetic input in a numeric field.
+TC003017,300,500,pass,$337.99,Showing 1 to 2 of 2 (1 Pages),Verifies the basic success scenario: user enters a valid price range and the system applies the filter, displaying only products whose price is between that range.
+TC003018,300,310,pass,N/A,N/A,Verifies the basic success scenario: user enters a valid price range and the system applies the filter, but no product in that range.
+TC003019,,100,pass,$98.00,Showing 1 to 2 of 2 (1 Pages),Verifies an alternative flow where Min is omitted: user only enters Max price and runs the filter; the system treat Min as 0.
+TC003020,2000,1000,fail,N/A,N/A,Verifies an exception flow where Min > Max: user enters an invalid price range and submits the filter; the system should detect the inconsistency and display an appropriate error/validation message.
+TC003021,300,500,pass,$337.99,Showing 1 to 2 of 2 (1 Pages),Verifies the rule where Min and Max are valid and Min ≤ Max and there exist products in that range.
+TC003022,2000,1000,fail,N/A,N/A,Verifies the rule where Min and Max are valid numbers but Min > Max. An error message should be shown instead of running the search.
+TC003023,-10,100,fail,N/A,N/A,Verifies the rule where Min is an invalid value (negative), Max is valid. The system should follow the “invalid Min” rule in the decision table and display a validation error instead of applying the filter.
+TC003024,2000,6000,fail,N/A,N/A,Verifies the invalid equivalence class “max price value greater than allowed range”. The system should handle out-of-range values properly (show an error).
+TC003025,300,310,pass,N/A,N/A,Verifies the rule where Min and Max are valid and Min ≤ Max but no product satisfies the range. The system should still accept the input, execute the search, and show the “There is no product that matches the search criteria.” message.

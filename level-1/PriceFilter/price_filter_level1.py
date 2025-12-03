@@ -109,6 +109,17 @@ class DataDrivenPriceFilterTest(unittest.TestCase):
             
             else:  # expected_result == 'fail'
                 # For negative test cases, we expect no valid results or error handling
+                if test_case['expected_pagination'] == 'N/A':
+                    # Check for "No products found" message
+                    not_found_message = self.driver.find_element(
+                        By.XPATH, "//div[@id='entry_212469']/p"
+                    ).text
+                    self.assertEqual(
+                        not_found_message,
+                        "There is no product that matches the search criteria.",
+                        f"Expected 'No products found' message, but got: {not_found_message}"
+                    )
+                    print(f"✓ Correct 'No products found' message displayed")
                 print(f"✓ Test Case {test_case['test_case_id']} PASSED (Negative test)")
         
         except Exception as e:
