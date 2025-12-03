@@ -22,6 +22,9 @@ LOCATORS = {
     # Pagination Element
     "pagination_text": ("xpath", "//div[@id='entry_212470']/div/div[2]"),
     
+    # No Product Found Message
+    "no_product_message": ("xpath", "//div[@id='entry_212469']/p"),
+    
     # Product List
     "product_list": ("xpath", "//div[contains(@class, 'product-layout')]"),
     "product_prices": ("xpath", "//span[@class='price-new'] | //span[@class='price-old']"),
@@ -43,6 +46,7 @@ TEST_CONFIG = {
 # Expected Values
 EXPECTED_VALUES = {
     "currency_symbol": "$",
-    "price_pattern": r"^\$\d+\.\d{2}$",
+    "price_pattern": r"^\$\d{1,3}(,\d{3})*\.\d{2}$",
     "pagination_pattern": r"Showing \d+ to \d+ of \d+ \(\d+ Pages\)",
+    "no_product_message": "There is no product that matches the search criteria.",
 }
