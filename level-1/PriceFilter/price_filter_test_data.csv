@@ -5,7 +5,7 @@ TC003003,500,1000,$602.00,Showing 1 to 2 of 2 (1 Pages),N/A,Verify that the syst
 TC003004,5000,5000,N/A,N/A,There is no product that matches the search criteria.,Verify that the system correctly accepts the upper boundary value for min price=5000 and returns a valid product list.
 TC003005,5001,500,N/A,N/A,N/A,Verify that the system rejects price input above the upper boundary (min price>5000) and displays the correct error message.
 TC003006,0,-1,N/A,N/A,N/A,Verify that the system correctly rejects price inputs below the valid threshold (0≤price≤5000). Expect an error message.
-TC003007,0,0,N/A,N/A,N/A,Verify that the system correctly accepts the lower boundary value for max price=0 and returns a valid product list.
+TC003007,0,0,N/A,N/A,There is no product that matches the search criteria.,Verify that the system correctly accepts the lower boundary value for max price=0 and returns a valid product list.
 TC003008,300,500,$337.99,Showing 1 to 2 of 2 (1 Pages),N/A,Verify that the system correctly accepts the normal range for a mid-range price value (max price=500) and returns a valid product list.
 TC003009,2000,5000,"$2,000.00",Showing 1 to 2 of 2 (1 Pages),N/A,Verify that the system correctly accepts the upper boundary value for max price=5000 and returns a valid product list.
 TC003010,2000,5001,N/A,N/A,N/A,Verify that the system rejects price input above the upper boundary (max price>5000) and displays the correct error message.
