@@ -37,7 +37,7 @@ def load_test_data():
 
 
 @ddt
-class AdvancedDataDrivenTest(unittest.TestCase):
+class PriceFilterLevel2(unittest.TestCase):
     
     # Class variables to track test results
     test_results = {
@@ -115,7 +115,7 @@ class AdvancedDataDrivenTest(unittest.TestCase):
         """Execute test case using configuration - runs once per test case"""
         
         self.current_test_id = test_case['test_case_id']
-        AdvancedDataDrivenTest.total_tests += 1
+        PriceFilterLevel2.total_tests += 1
         
         print(f"\n{'='*60}")
         print(f"Executing: {test_case['test_case_id']}")
@@ -143,18 +143,90 @@ class AdvancedDataDrivenTest(unittest.TestCase):
             max_field.send_keys(Keys.ENTER)
             time.sleep(3)
             
-            # Verify results based on expected outcome
-            if test_case['expected_result'] == 'pass':
-                self.verify_positive_test(test_case)
-            else:  # expected_result == 'fail'
-                self.verify_negative_test(test_case)
+            # Check what's actually displayed
+            product_price_found = False
+            pagination_found = False
+            not_found_found = False
+            
+            actual_price = None
+            actual_pagination = None
+            actual_not_found = None
+            
+            # Try to find product price
+            try:
+                actual_price = self.find_element_by_config('first_product_price').text
+                product_price_found = True
+            except NoSuchElementException:
+                pass
+            
+            # Try to find pagination
+            try:
+                actual_pagination = self.find_element_by_config('pagination_text').text
+                pagination_found = True
+            except NoSuchElementException:
+                pass
+            
+            # Try to find "not found" message
+            try:
+                actual_not_found = self.find_element_by_config('no_product_message').text
+                not_found_found = True
+            except NoSuchElementException:
+                pass
+            
+            # Verify product price
+            if test_case['expected_price'] != 'N/A':
+                if not product_price_found:
+                    self.fail(f"Expected price {test_case['expected_price']}, but no product price found")
+                
+                self.assertEqual(actual_price, test_case['expected_price'], 
+                                f"Expected price {test_case['expected_price']}, but got {actual_price}")
+                # Verify price format
+                self.assertTrue(
+                    self.verify_price_format(actual_price),
+                    f"Price format invalid: {actual_price}"
+                )
+                print(f"✓ Price matches: {actual_price}")
+            else:
+                if product_price_found:
+                    self.fail(f"Expected no product price (N/A), but found: {actual_price}")
+            
+            # Verify pagination
+            if test_case['expected_pagination'] != 'N/A':
+                if not pagination_found:
+                    self.fail(f"Expected pagination '{test_case['expected_pagination']}', but no pagination found")
+                
+                self.assertEqual(actual_pagination, test_case['expected_pagination'],
+                               f"Expected pagination '{test_case['expected_pagination']}', but got '{actual_pagination}'")
+                # Verify pagination format
+                self.assertTrue(
+                    self.verify_pagination_format(actual_pagination),
+                    f"Pagination format invalid: {actual_pagination}"
+                )
+                print(f"✓ Pagination matches: {actual_pagination}")
+            else:
+                if pagination_found:
+                    self.fail(f"Expected no pagination (N/A), but found: {actual_pagination}")
+            
+            # Verify "not found" message
+            if test_case['not_found'] != 'N/A':
+                if not not_found_found:
+                    self.fail(f"Expected 'not found' message '{test_case['not_found']}', but no message found")
+                
+                self.assertEqual(actual_not_found, test_case['not_found'],
+                               f"Expected 'not found' message '{test_case['not_found']}', but got '{actual_not_found}'")
+                print(f"✓ 'Not found' message matches: {actual_not_found}")
+            else:
+                if not_found_found:
+                    self.fail(f"Expected no 'not found' message (N/A), but found: {actual_not_found}")
+            
+            print(f"✓ Test Case {test_case['test_case_id']} PASSED")
             
             # Record success
-            AdvancedDataDrivenTest.test_results['passed'].append(self.current_test_id)
+            PriceFilterLevel2.test_results['passed'].append(self.current_test_id)
         
         except AssertionError as e:
             print(f"✗ Test Case {test_case['test_case_id']} FAILED: {str(e)}")
-            AdvancedDataDrivenTest.test_results['failed'].append({
+            PriceFilterLevel2.test_results['failed'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
             })
@@ -162,57 +234,11 @@ class AdvancedDataDrivenTest(unittest.TestCase):
         
         except Exception as e:
             print(f"✗ Test Case {test_case['test_case_id']} ERROR: {str(e)}")
-            AdvancedDataDrivenTest.test_results['errors'].append({
+            PriceFilterLevel2.test_results['errors'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
             })
             raise
-    
-    def verify_positive_test(self, test_case):
-        """Verify positive test case results"""
-        # Check if products are displayed
-        if test_case['expected_price'] != 'N/A':
-            product_price = self.find_element_by_config('first_product_price').text
-            print(f"✓ Product price: {product_price}")
-            
-            # Verify price format & value
-            self.assertTrue(
-                self.verify_price_format(product_price),
-                f"Price format invalid: {product_price}"
-            )
-            # verify value
-            print(f"✓ Price format valid")
-            self.assertEqual(product_price, test_case['expected_price'], 
-                            f"Expected price {test_case['expected_price']}, but got {product_price}")
-            print(f"✓ Price matches expected value")
-        
-        # Verify pagination if expected
-        if test_case['expected_pagination'] != 'N/A':
-            try:
-                pagination = self.find_element_by_config('pagination_text').text
-                self.assertTrue(
-                    self.verify_pagination_format(pagination),
-                    f"Pagination format invalid: {pagination}"
-                )
-                print(f"✓ Pagination: {pagination}")
-            except NoSuchElementException:
-                print(f"⚠ Pagination not found")
-        
-        print(f"✓ {test_case['test_case_id']} PASSED")
-    
-        if test_case['not_found'] != 'N/A':
-            not_found_message = self.find_element_by_config('no_product_message').text
-            self.assertEqual(
-                not_found_message,
-                EXPECTED_VALUES['no_product_message'],
-                f"Expected 'No products found' message, but got: {not_found_message}"
-            )
-            print(f"✓ Correct 'No products found' message displayed")
-    
-    
-    def verify_negative_test(self, test_case):
-        """Verify negative test case (should fail or show no results)"""
-        print(f"✓ {test_case['test_case_id']} PASSED (Negative test - invalid input handled)")
     
     def tearDown(self):
         """Clean up after each test"""

@@ -31,7 +31,7 @@ def load_test_data():
 
 
 @ddt
-class DataDrivenPriceFilterTest(unittest.TestCase):
+class PriceFilterLevel1(unittest.TestCase):
     
     # Class variables to track test results
     test_results = {
@@ -65,7 +65,7 @@ class DataDrivenPriceFilterTest(unittest.TestCase):
         """Test price filter with data from CSV - runs once per test case"""
         
         self.current_test_id = test_case['test_case_id']
-        DataDrivenPriceFilterTest.total_tests += 1
+        PriceFilterLevel1.total_tests += 1
         
         print(f"\n{'='*60}")
         print(f"Running: {test_case['test_case_id']}")
@@ -107,49 +107,89 @@ class DataDrivenPriceFilterTest(unittest.TestCase):
             max_price_field.send_keys(Keys.ENTER)
             time.sleep(3)
             
-            # Verify results based on expected outcome
-            if test_case['expected_result'] == 'pass':
-                # Verify product price is displayed
-                if test_case['expected_price'] != 'N/A':
-                    product_price = self.driver.find_element(
+            # Check what's actually displayed
+            product_price_found = False
+            pagination_found = False
+            not_found_found = False
+            
+            actual_price = None
+            actual_pagination = None
+            actual_not_found = None
+            
+            # Try to find product price
+            try:
+                actual_price = self.driver.find_element(
                     By.XPATH, "//div[@id='entry_212469']/div/div/div/div[2]/div/span"
                 ).text
-                    self.assertEqual(product_price, test_case['expected_price'], 
-                                    f"Expected price {test_case['expected_price']}, but got {product_price}")
-                    # Verify price format
-                    self.assertRegex(product_price, r'^\$\d{1,3}(,\d{3})*\.\d{2}$', 
-                                f"Price format invalid: {product_price}")
-                    print(f"✓ Price format is valid")
-                
-                # Verify pagination if expected
-                if test_case['expected_pagination'] != 'N/A':
-                    pagination = self.driver.find_element(
-                        By.XPATH, "//div[@id='entry_212470']/div/div[2]"
-                    ).text
-                    print(f"✓ Pagination: {pagination}")
-                
-                if test_case['not_found'] != 'N/A':
-                    not_found_message = self.driver.find_element(
-                        By.XPATH, "//div[@id='entry_212469']/p"
-                    ).text
-                    self.assertEqual(
-                        not_found_message,
-                        test_case['not_found'],
-                        f"Expected 'No products found' message, but got: {not_found_message}"
-                    )
-                    print(f"✓ Correct 'No products found' message displayed")
-                
-                print(f"✓ Test Case {test_case['test_case_id']} PASSED")
+                product_price_found = True
+            except NoSuchElementException:
+                pass
             
-            else:  # expected_result == 'fail'
-                print(f"✓ Test Case {test_case['test_case_id']} PASSED (Negative test)")
+            # Try to find pagination
+            try:
+                actual_pagination = self.driver.find_element(
+                    By.XPATH, "//div[@id='entry_212470']/div/div[2]"
+                ).text
+                pagination_found = True
+            except NoSuchElementException:
+                pass
+            
+            # Try to find "not found" message
+            try:
+                actual_not_found = self.driver.find_element(
+                    By.XPATH, "//div[@id='entry_212469']/p"
+                ).text
+                not_found_found = True
+            except NoSuchElementException:
+                pass
+            
+            # Verify product price
+            if test_case['expected_price'] != 'N/A':
+                if not product_price_found:
+                    self.fail(f"Expected price {test_case['expected_price']}, but no product price found")
+                
+                self.assertEqual(actual_price, test_case['expected_price'], 
+                                f"Expected price {test_case['expected_price']}, but got {actual_price}")
+                # Verify price format
+                self.assertRegex(actual_price, r'^\$\d{1,3}(,\d{3})*\.\d{2}$', 
+                            f"Price format invalid: {actual_price}")
+                print(f"✓ Price matches: {actual_price}")
+            else:
+                if product_price_found:
+                    self.fail(f"Expected no product price (N/A), but found: {actual_price}")
+            
+            # Verify pagination
+            if test_case['expected_pagination'] != 'N/A':
+                if not pagination_found:
+                    self.fail(f"Expected pagination '{test_case['expected_pagination']}', but no pagination found")
+                
+                self.assertEqual(actual_pagination, test_case['expected_pagination'],
+                               f"Expected pagination '{test_case['expected_pagination']}', but got '{actual_pagination}'")
+                print(f"✓ Pagination matches: {actual_pagination}")
+            else:
+                if pagination_found:
+                    self.fail(f"Expected no pagination (N/A), but found: {actual_pagination}")
+            
+            # Verify "not found" message
+            if test_case['not_found'] != 'N/A':
+                if not not_found_found:
+                    self.fail(f"Expected 'not found' message '{test_case['not_found']}', but no message found")
+                
+                self.assertEqual(actual_not_found, test_case['not_found'],
+                               f"Expected 'not found' message '{test_case['not_found']}', but got '{actual_not_found}'")
+                print(f"✓ 'Not found' message matches: {actual_not_found}")
+            else:
+                if not_found_found:
+                    self.fail(f"Expected no 'not found' message (N/A), but found: {actual_not_found}")
+            
+            print(f"✓ Test Case {test_case['test_case_id']} PASSED")
             
             # Record success
-            DataDrivenPriceFilterTest.test_results['passed'].append(self.current_test_id)
+            PriceFilterLevel1.test_results['passed'].append(self.current_test_id)
         
         except AssertionError as e:
             print(f"✗ Test Case {test_case['test_case_id']} FAILED: {str(e)}")
-            DataDrivenPriceFilterTest.test_results['failed'].append({
+            PriceFilterLevel1.test_results['failed'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
             })
@@ -157,7 +197,7 @@ class DataDrivenPriceFilterTest(unittest.TestCase):
         
         except Exception as e:
             print(f"✗ Test Case {test_case['test_case_id']} ERROR: {str(e)}")
-            DataDrivenPriceFilterTest.test_results['errors'].append({
+            PriceFilterLevel1.test_results['errors'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
             })

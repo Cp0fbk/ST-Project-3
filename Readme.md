@@ -92,24 +92,24 @@ cd ..\..
 
 **Level 1:**
 ```bash
-python -m unittest level-1.PriceFilter.price_filter_level1.DataDrivenPriceFilterTest -v
+python -m unittest level-1.PriceFilter.price_filter_level1.PriceFilterLevel1 -v
 ```
 
 **Level 2:**
 ```bash
-python -m unittest level-2.PriceFilter.price_filter_level2.AdvancedDataDrivenTest -v
+python -m unittest level-2.PriceFilter.price_filter_level2.PriceFilterLevel2 -v
 ```
 
 #### Run a specific test method
 
 **Level 1 - Single test case:**
 ```bash
-python -m unittest level-1.PriceFilter.price_filter_level1.DataDrivenPriceFilterTest.test_price_filter_data_driven_1 -v
+python -m unittest level-1.PriceFilter.price_filter_level1.PriceFilterLevel1.test_price_filter_data_driven_1 -v
 ```
 
 **Level 2 - Single test case:**
 ```bash
-python -m unittest level-2.PriceFilter.price_filter_level2.AdvancedDataDrivenTest.test_advanced_price_filter_1 -v
+python -m unittest level-2.PriceFilter.price_filter_level2.PriceFilterLevel2.test_advanced_price_filter_1 -v
 ```
 
 ---
@@ -198,8 +198,8 @@ Successful test execution displays:
 
 **Example output:**
 ```
-test_price_filter_data_driven_1 (level-1.PriceFilter.price_filter_level1.DataDrivenPriceFilterTest) ... ok
-test_price_filter_data_driven_2 (level-1.PriceFilter.price_filter_level1.DataDrivenPriceFilterTest) ... ok
+test_price_filter_data_driven_1 (level-1.PriceFilter.price_filter_level1.PriceFilterLevel1) ... ok
+test_price_filter_data_driven_2 (level-1.PriceFilter.price_filter_level1.PriceFilterLevel1) ... ok
 
 ----------------------------------------------------------------------
 Ran 2 tests in 15.234s

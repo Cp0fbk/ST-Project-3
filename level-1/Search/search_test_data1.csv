@@ -1,0 +1,13 @@
+TC_ID,Search_Term,Expected_Results,Expected_Count,Description
+TC004001,imac,iMac,8,Valid search - multiple results
+TC004002,yzzz,No product,0,Invalid search - no results
+TC004003,apple cinema 30",Apple Cinema 30",8,Search with special chars
+TC004004,,,0,Empty search
+TC004005,    ,,0,Empty search
+TC004006,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,,0,Over-length keyword search
+TC004007,@@,,0,Invalid special characters only
+TC004008,imac,iMac,8,Valid search - duplicate
+TC004009,yzzz,No product,0,Invalid search - duplicate
+TC004010,,,0,Empty search
+TC004012,apple cinema 30",Apple Cinema 30",8,Search with special chars - duplicate
+TC004013,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,,0,Over-length keyword search - duplicate
