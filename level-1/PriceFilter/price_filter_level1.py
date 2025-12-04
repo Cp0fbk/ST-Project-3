@@ -54,7 +54,7 @@ class PriceFilterLevel1(unittest.TestCase):
         """Set up for each test"""
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(15)
         self.base_url = "https://ecommerce-playground.lambdatest.io/"
         self.verificationErrors = []
         self.wait = WebDriverWait(self.driver, 10)
