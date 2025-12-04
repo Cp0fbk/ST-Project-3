@@ -220,13 +220,13 @@ class PriceFilterLevel1(unittest.TestCase):
         print("="*60)
     
         if cls.test_results['failed']:
-            print("\n✗ FAILED TEST CASES:")
+            print("\n FAILED TEST CASES:")
             for failure in cls.test_results['failed']:
                 print(f"  - {failure['test_id']}")
                 print(f"    Reason: {failure['reason']}")
         
         if cls.test_results['errors']:
-            print("\n⚠ ERROR TEST CASES:")
+            print("\n ERROR TEST CASES:")
             for error in cls.test_results['errors']:
                 print(f"  - {error['test_id']}")
                 print(f"    Reason: {error['reason']}")
