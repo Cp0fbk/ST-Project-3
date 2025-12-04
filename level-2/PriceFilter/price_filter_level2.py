@@ -185,7 +185,7 @@ class PriceFilterLevel2(unittest.TestCase):
                     self.verify_price_format(actual_price),
                     f"Price format invalid: {actual_price}"
                 )
-                print(f"✓ Price matches: {actual_price}")
+                print(f" Price matches: {actual_price}")
             else:
                 if product_price_found:
                     self.fail(f"Expected no product price (N/A), but found: {actual_price}")
@@ -202,7 +202,7 @@ class PriceFilterLevel2(unittest.TestCase):
                     self.verify_pagination_format(actual_pagination),
                     f"Pagination format invalid: {actual_pagination}"
                 )
-                print(f"✓ Pagination matches: {actual_pagination}")
+                print(f" Pagination matches: {actual_pagination}")
             else:
                 if pagination_found:
                     self.fail(f"Expected no pagination (N/A), but found: {actual_pagination}")
@@ -214,18 +214,18 @@ class PriceFilterLevel2(unittest.TestCase):
                 
                 self.assertEqual(actual_not_found, test_case['not_found'],
                                f"Expected 'not found' message '{test_case['not_found']}', but got '{actual_not_found}'")
-                print(f"✓ 'Not found' message matches: {actual_not_found}")
+                print(f" 'Not found' message matches: {actual_not_found}")
             else:
                 if not_found_found:
                     self.fail(f"Expected no 'not found' message (N/A), but found: {actual_not_found}")
             
-            print(f"✓ Test Case {test_case['test_case_id']} PASSED")
+            print(f" Test Case {test_case['test_case_id']} PASSED")
             
             # Record success
             PriceFilterLevel2.test_results['passed'].append(self.current_test_id)
         
         except AssertionError as e:
-            print(f"✗ Test Case {test_case['test_case_id']} FAILED: {str(e)}")
+            print(f" Test Case {test_case['test_case_id']} FAILED: {str(e)}")
             PriceFilterLevel2.test_results['failed'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
@@ -233,7 +233,7 @@ class PriceFilterLevel2(unittest.TestCase):
             raise
         
         except Exception as e:
-            print(f"✗ Test Case {test_case['test_case_id']} ERROR: {str(e)}")
+            print(f" Test Case {test_case['test_case_id']} ERROR: {str(e)}")
             PriceFilterLevel2.test_results['errors'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
@@ -257,13 +257,13 @@ class PriceFilterLevel2(unittest.TestCase):
         print("="*60)
         
         if cls.test_results['failed']:
-            print("\n✗ FAILED TEST CASES:")
+            print("\n FAILED TEST CASES:")
             for failure in cls.test_results['failed']:
                 print(f"  - {failure['test_id']}")
                 print(f"    Reason: {failure['reason']}")
         
         if cls.test_results['errors']:
-            print("\n⚠ ERROR TEST CASES:")
+            print("\n ERROR TEST CASES:")
             for error in cls.test_results['errors']:
                 print(f"  - {error['test_id']}")
                 print(f"    Reason: {error['reason']}")

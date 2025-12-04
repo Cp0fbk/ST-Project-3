@@ -153,7 +153,7 @@ class PriceFilterLevel1(unittest.TestCase):
                 # Verify price format
                 self.assertRegex(actual_price, r'^\$\d{1,3}(,\d{3})*\.\d{2}$', 
                             f"Price format invalid: {actual_price}")
-                print(f"✓ Price matches: {actual_price}")
+                print(f" Price matches: {actual_price}")
             else:
                 if product_price_found:
                     self.fail(f"Expected no product price (N/A), but found: {actual_price}")
@@ -165,7 +165,7 @@ class PriceFilterLevel1(unittest.TestCase):
                 
                 self.assertEqual(actual_pagination, test_case['expected_pagination'],
                                f"Expected pagination '{test_case['expected_pagination']}', but got '{actual_pagination}'")
-                print(f"✓ Pagination matches: {actual_pagination}")
+                print(f" Pagination matches: {actual_pagination}")
             else:
                 if pagination_found:
                     self.fail(f"Expected no pagination (N/A), but found: {actual_pagination}")
@@ -177,18 +177,18 @@ class PriceFilterLevel1(unittest.TestCase):
                 
                 self.assertEqual(actual_not_found, test_case['not_found'],
                                f"Expected 'not found' message '{test_case['not_found']}', but got '{actual_not_found}'")
-                print(f"✓ 'Not found' message matches: {actual_not_found}")
+                print(f" 'Not found' message matches: {actual_not_found}")
             else:
                 if not_found_found:
                     self.fail(f"Expected no 'not found' message (N/A), but found: {actual_not_found}")
             
-            print(f"✓ Test Case {test_case['test_case_id']} PASSED")
+            print(f" Test Case {test_case['test_case_id']} PASSED")
             
             # Record success
             PriceFilterLevel1.test_results['passed'].append(self.current_test_id)
         
         except AssertionError as e:
-            print(f"✗ Test Case {test_case['test_case_id']} FAILED: {str(e)}")
+            print(f" Test Case {test_case['test_case_id']} FAILED: {str(e)}")
             PriceFilterLevel1.test_results['failed'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
@@ -196,7 +196,7 @@ class PriceFilterLevel1(unittest.TestCase):
             raise
         
         except Exception as e:
-            print(f"✗ Test Case {test_case['test_case_id']} ERROR: {str(e)}")
+            print(f" Test Case {test_case['test_case_id']} ERROR: {str(e)}")
             PriceFilterLevel1.test_results['errors'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)

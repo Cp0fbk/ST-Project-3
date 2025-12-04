@@ -162,7 +162,7 @@ class SearchLevel2(unittest.TestCase):
                 # Check if product name contains expected result
                 self.assertIn(test_case['Expected_Results'].lower(), actual_product_name.lower(),
                             f"Expected product containing '{test_case['Expected_Results']}', but got '{actual_product_name}'")
-                print(f"✓ Product found: {actual_product_name}")
+                print(f" Product found: {actual_product_name}")
             else:
                 if product_found:
                     self.fail(f"Expected no product (N/A), but found: {actual_product_name}")
@@ -174,7 +174,7 @@ class SearchLevel2(unittest.TestCase):
                 
                 self.assertEqual(actual_not_found_msg, test_case['Expected_NotFound'],
                                f"Expected message '{test_case['Expected_NotFound']}', but got '{actual_not_found_msg}'")
-                print(f"✓ 'Not found' message matches: {actual_not_found_msg}")
+                print(f" 'Not found' message matches: {actual_not_found_msg}")
             else:
                 if not_found_found:
                     self.fail(f"Expected no 'not found' message (N/A), but found: {actual_not_found_msg}")
@@ -186,18 +186,18 @@ class SearchLevel2(unittest.TestCase):
                 
                 self.assertEqual(actual_count_info, test_case['Expected_Count'],
                                f"Expected count info '{test_case['Expected_Count']}', but got '{actual_count_info}'")
-                print(f"✓ Count info matches: {actual_count_info}")
+                print(f" Count info matches: {actual_count_info}")
             else:
                 if count_info_found:
                     self.fail(f"Expected no count info (N/A), but found: {actual_count_info}")
             
-            print(f"✓ Test Case {test_case['TC_ID']} PASSED")
+            print(f" Test Case {test_case['TC_ID']} PASSED")
             
             # Record success
             SearchLevel2.test_results['passed'].append(self.current_test_id)
         
         except AssertionError as e:
-            print(f"✗ Test Case {test_case['TC_ID']} FAILED: {str(e)}")
+            print(f" Test Case {test_case['TC_ID']} FAILED: {str(e)}")
             SearchLevel2.test_results['failed'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
@@ -205,7 +205,7 @@ class SearchLevel2(unittest.TestCase):
             raise
         
         except Exception as e:
-            print(f"✗ Test Case {test_case['TC_ID']} ERROR: {str(e)}")
+            print(f" Test Case {test_case['TC_ID']} ERROR: {str(e)}")
             SearchLevel2.test_results['errors'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
@@ -276,7 +276,7 @@ class SearchLevel2(unittest.TestCase):
                 
                 self.assertIn(test_case['Expected_Results1'].lower(), actual_product_name.lower(),
                             f"First search: Expected product containing '{test_case['Expected_Results1']}', but got '{actual_product_name}'")
-                print(f"✓ First search - Product found: {actual_product_name}")
+                print(f" First search - Product found: {actual_product_name}")
             else:
                 if product_found:
                     self.fail(f"First search: Expected no product (N/A), but found: {actual_product_name}")
@@ -288,7 +288,7 @@ class SearchLevel2(unittest.TestCase):
                 
                 self.assertEqual(actual_count_info, test_case['Expected_Count1'],
                                f"First search: Expected count info '{test_case['Expected_Count1']}', but got '{actual_count_info}'")
-                print(f"✓ First search - Count info matches: {actual_count_info}")
+                print(f" First search - Count info matches: {actual_count_info}")
             else:
                 if count_info_found:
                     self.fail(f"First search: Expected no count info (N/A), but found: {actual_count_info}")
@@ -338,7 +338,7 @@ class SearchLevel2(unittest.TestCase):
                 
                 self.assertIn(test_case['Expected_Results2'].lower(), actual_product_name.lower(),
                             f"Second search: Expected product containing '{test_case['Expected_Results2']}', but got '{actual_product_name}'")
-                print(f"✓ Second search - Product found: {actual_product_name}")
+                print(f" Second search - Product found: {actual_product_name}")
             else:
                 if product_found:
                     self.fail(f"Second search: Expected no product (N/A), but found: {actual_product_name}")
@@ -350,18 +350,18 @@ class SearchLevel2(unittest.TestCase):
                 
                 self.assertEqual(actual_count_info, test_case['Expected_Count2'],
                                f"Second search: Expected count info '{test_case['Expected_Count2']}', but got '{actual_count_info}'")
-                print(f"✓ Second search - Count info matches: {actual_count_info}")
+                print(f" Second search - Count info matches: {actual_count_info}")
             else:
                 if count_info_found:
                     self.fail(f"Second search: Expected no count info (N/A), but found: {actual_count_info}")
             
-            print(f"\n✓ Test Case {test_case['TC_ID']} PASSED")
+            print(f"\n Test Case {test_case['TC_ID']} PASSED")
             
             # Record success
             SearchLevel2.test_results['passed'].append(self.current_test_id)
         
         except AssertionError as e:
-            print(f"✗ Test Case {test_case['TC_ID']} FAILED: {str(e)}")
+            print(f" Test Case {test_case['TC_ID']} FAILED: {str(e)}")
             SearchLevel2.test_results['failed'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
@@ -369,7 +369,7 @@ class SearchLevel2(unittest.TestCase):
             raise
         
         except Exception as e:
-            print(f"✗ Test Case {test_case['TC_ID']} ERROR: {str(e)}")
+            print(f" Test Case {test_case['TC_ID']} ERROR: {str(e)}")
             SearchLevel2.test_results['errors'].append({
                 'test_id': self.current_test_id,
                 'reason': str(e)
@@ -393,13 +393,13 @@ class SearchLevel2(unittest.TestCase):
         print("="*60)
         
         if cls.test_results['failed']:
-            print("\n✗ FAILED TEST CASES:")
+            print("\n FAILED TEST CASES:")
             for failure in cls.test_results['failed']:
                 print(f"  - {failure['test_id']}")
                 print(f"    Reason: {failure['reason']}")
         
         if cls.test_results['errors']:
-            print("\n⚠ ERROR TEST CASES:")
+            print("\n ERROR TEST CASES:")
             for error in cls.test_results['errors']:
                 print(f"  - {error['test_id']}")
                 print(f"    Reason: {error['reason']}")
