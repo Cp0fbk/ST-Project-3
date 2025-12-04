@@ -1,0 +1,2 @@
+TC_ID,Search_Term1,Search_Term2,Expected_Results1,Expected_Results2,Expected_Count1,Expected_Count2,Description
+TC004011,ipod,iphone,iPod,iPhone,16,4,Valid search - multiple results for two terms
