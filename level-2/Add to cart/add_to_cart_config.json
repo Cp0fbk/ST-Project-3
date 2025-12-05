@@ -1,0 +1,57 @@
+{
+  "url": "https://ecommerce-playground.lambdatest.io/",
+  "elements": {
+    "shop_by_category_link": {
+      "by": "link_text",
+      "value": "Shop by Category"
+    },
+    "desktops_menu_item": {
+      "by": "xpath",
+      "value": "//div[@id='widget-navbar-217841']/ul/li[7]/a/div[2]/span"
+    },
+    "desktops_img": {
+      "by": "xpath",
+      "value": "//img[@alt='Desktops']"
+    },
+    "pc_img": {
+      "by": "xpath",
+      "value": "//img[@alt='PC']"
+    },
+
+    "filter_in_stock": {
+      "by": "xpath",
+      "value": "//div[@id='mz-filter-panel-0-5']//label[contains(.,'In stock')]"
+    },
+    "filter_out_of_stock": {
+      "by": "xpath",
+      "value": "//div[@id='mz-filter-panel-0-5']//div[2]//label"
+    },
+
+    "product_tile": {
+      "by": "css",
+      "value": "div.product-layout"
+    },
+
+    "quantity_input": {
+      "by": "xpath",
+      "value": "//div[@id='entry_216841']//input"
+    },
+    "add_to_cart_button": {
+      "by": "xpath",
+      "value": "//div[@id='entry_216842']//button"
+    },
+
+    "notification_message": {
+      "by": "xpath",
+      "value": "//div[@id='notification-box-top']//p"
+    },
+    "size_error_message": {
+      "by": "xpath",
+      "value": "//div[@id='entry_216836']/form/div/div"
+    },
+    "size_dropdown": {
+      "by": "id",
+      "value": "input-option234-216836"
+    }
+  }
+}

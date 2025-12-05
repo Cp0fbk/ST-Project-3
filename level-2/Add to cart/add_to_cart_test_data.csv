@@ -1,0 +1,13 @@
+tc_id,product,quantity,size_option,stock_status,expected_message
+TC_005_001,HP LP3065,0,NOT_REQUIRED,IN_STOCK,Invalid quantity
+TC_005_002,HP LP3065,1,NOT_REQUIRED,IN_STOCK,Success: You have added HP LP3065 to your shopping cart !
+TC_005_003,iPod Classic,55,NOT_REQUIRED,IN_STOCK,Success: You have added iPod Classic to your shopping cart !
+TC_005_004,HP LP3065,100,NOT_REQUIRED,IN_STOCK,Success: You have added HP LP3065 to your shopping cart !
+TC_005_005,iPod Classic,101,NOT_REQUIRED,IN_STOCK,Invalid quantity
+TC_005_006,iPod Nano,5,NOT_REQUIRED,IN_STOCK,Success: You have added iPod Nano to your shopping cart !
+TC_005_007,iPod Classic,0,NOT_REQUIRED,IN_STOCK,Invalid quantity
+TC_005_008,iPod Shuffle,101,NOT_REQUIRED,IN_STOCK,Invalid quantity
+TC_005_009,MacBook,"abc",NOT_REQUIRED,IN_STOCK,Invalid quantity
+TC_005_010,Apple Cinema 30",1,NONE,IN_STOCK,Size required!
+TC_005_011,Sony VAIO,10,NOT_REQUIRED,OUT_OF_STOCK,OUT OF STOCK
+TC_005_012,MacBook Air,3,NOT_REQUIRED,IN_STOCK,Success: You have added MacBook Air to your shopping cart !

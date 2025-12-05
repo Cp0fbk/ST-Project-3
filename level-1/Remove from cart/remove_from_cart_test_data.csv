@@ -1,0 +1,5 @@
+tc_id,initial_items,remove_clicks,expected_items_after,expect_empty_message
+TC_006_001,0,0,0,YES
+TC_006_002,1,1,0,YES
+TC_006_003,2,1,1,NO
+TC_006_007,1,2,0,YES
