@@ -1,0 +1,30 @@
+test_case_id,test_description,username,password,expected
+LOGIN-BVA-001,Min length username (1 char) with nominal password,a,secret_sauce,invalid_credentials
+LOGIN-BVA-002,Min+1 username (2 char) with nominal password,ab,secret_sauce,invalid_credentials
+LOGIN-BVA-003,Valid username & password (happy path),standard_user,secret_sauce,success
+LOGIN-BVA-004,Max-1 username (49 chars),aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,secret_sauce,invalid_credentials
+LOGIN-BVA-005,Max username (50 chars),aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,secret_sauce,invalid_credentials
+LOGIN-BVA-006,Above max username (51 chars),aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,secret_sauce,invalid_credentials
+LOGIN-BVA-007,Empty username with nominal password,,secret_sauce,username_required
+LOGIN-BVA-008,Nominal username with 1-char password,standard_user,s,invalid_credentials
+LOGIN-BVA-009,Nominal username with 2-char password,standard_user,se,invalid_credentials
+LOGIN-BVA-010,Nominal username with 49-char password,standard_user,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,invalid_credentials
+LOGIN-BVA-011,Nominal username with 50-char password,standard_user,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,invalid_credentials
+LOGIN-BVA-012,Nominal username with 51-char password,standard_user,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,invalid_credentials
+LOGIN-BVA-013,Nominal username with empty password,standard_user,,password_required
+LOGIN-ECP-001,Valid registered username and correct password,standard_user,secret_sauce,success
+LOGIN-ECP-002,Locked user correct password,locked_out_user,secret_sauce,locked_out
+LOGIN-ECP-003,Empty username (UIV1),,secret_sauce,username_required
+LOGIN-ECP-004,Unregistered username, test_user_123,secret_sauce,invalid_credentials
+LOGIN-ECP-005,SQL injection like username, "admin' OR '1'='1",secret_sauce,invalid_credentials
+LOGIN-ECP-006,Whitespace-only username,"     ",secret_sauce,username_required
+LOGIN-ECP-007,Very long username (100 chars),aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,secret_sauce,invalid_credentials
+LOGIN-ECP-008,Valid username empty password,standard_user,,password_required
+LOGIN-ECP-009,Valid username incorrect password,standard_user,wrong_password,invalid_credentials
+LOGIN-ECP-010,Valid username special char password,standard_user,"' OR '1'='1",invalid_credentials
+LOGIN-ECP-011,Valid username whitespace-only password,standard_user,"     ",password_required
+LOGIN-DC-001,Decision table: valid user correct password,standard_user,secret_sauce,success
+LOGIN-DC-002,Decision table: locked user correct password,locked_out_user,secret_sauce,locked_out
+LOGIN-DC-003,Decision table: valid user wrong password,standard_user,wrong_password,invalid_credentials
+LOGIN-DC-004,Decision table: valid user empty password,standard_user,,password_required
+LOGIN-DC-005,Decision table: invalid user correct password,invalid_user,secret_sauce,invalid_credentials

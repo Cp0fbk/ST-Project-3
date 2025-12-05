@@ -1,0 +1,4 @@
+test_case_id,test_description,username,password,expected
+LOGOUT-UC-001,Normal logout flow from inventory page,standard_user,secret_sauce,logout_success
+LOGOUT-UC-002,Logout from product details page (flow) ,standard_user,secret_sauce,logout_success
+LOGOUT-NONHAPPY-001,Attempt logout after login failure (should not reach logout),standard_user,wrong_password,login_failed_no_logout
