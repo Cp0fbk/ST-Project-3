@@ -1,0 +1,10 @@
+test_id,action,product_name,product_id,category,expected_result
+ECP-008-001,click_image,HTC Touch HD,,,Product page displayed
+ECP-008-002,direct_url,,999999,,Product not found
+ECP-008-003,direct_url,,abc,,Product not found
+ECP-008-004,click_category,HTC Touch HD,,Desktops,Product page displayed
+DT-008-001,click_image,Apple Cinema 30",,,Product page displayed
+DT-008-002,click_category,Nikon D300,,Desktops,Product page displayed
+DT-008-003,direct_url,,31,,Product page displayed
+DT-008-004,direct_url,,99999,,Product not found
+DT-008-005,direct_url,,abc,,Product not found

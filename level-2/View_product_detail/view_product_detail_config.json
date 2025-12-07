@@ -1,0 +1,25 @@
+{
+  "url": "https://ecommerce-playground.lambdatest.io/",
+  "elements": {
+    "home_category_image": {
+      "by": "xpath",
+      "value": "//img[contains(@alt, '{{category}}')]"
+    },
+    "product_image": {
+      "by": "xpath",
+      "value": "//img[contains(@alt, '{{product}}')]"
+    },
+    "product_title": {
+      "by": "css",
+      "value": "h1"
+    },
+    "product_price": {
+      "by": "css",
+      "value": ".product-price, .price-new"
+    },
+    "not_found_text": {
+      "by": "xpath",
+      "value": "//*[contains(text(), 'not found') or contains(text(), '404') or contains(text(), 'cannot be found')]"
+    }
+  }
+}
